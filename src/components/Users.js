@@ -37,6 +37,7 @@ export default class Users extends Component {
         return arr.map(item => {
             const {name, altname, photo, id} = item;
 
+            
             return (
                 <div key={id}>
                     <User 
