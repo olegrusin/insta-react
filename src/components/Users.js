@@ -34,10 +34,15 @@ export default class Users extends Component {
     }
 
     renderItem(arr) {
-        return arr.map(item => {
+        
+        
+        return arr
+            .filter((item, index, self) =>
+                index === self.findIndex(el => el.name === item.name)
+            )
+            .map(item => {
             const {name, altname, photo, id} = item;
 
-            
             return (
                 <div key={id}>
                     <User 
