@@ -37,9 +37,6 @@ export default class Users extends Component {
         
         
         return arr
-            .filter((item, index, self) =>
-                index === self.findIndex(el => el.name === item.name)
-            )
             .map(item => {
             const {name, altname, photo, id} = item;
 
