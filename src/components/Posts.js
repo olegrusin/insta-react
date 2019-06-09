@@ -38,8 +38,13 @@ class Posts extends Component {
     }
 
     renderItem(arr) {
-        return arr.map(item => {
-            const {name, altname, photo, src, alt, descr, id} = item;
+        return arr
+            .sort(function(a, b){
+                var dateA=new Date(a.time), dateB=new Date(b.time)
+                return dateB - dateA;
+            })
+            .map(item => {
+            const {name, altname, photo, src, alt, descr, id, time} = item;
 
             return (
                 <div key={id} className="post">
@@ -54,6 +59,9 @@ class Posts extends Component {
                     </div>
                     <div className="post__descr">
                         {descr}
+                    </div>
+                    <div className="post__time">
+                        {time.slice(0,10)}
                     </div>
                 </div>
             )    

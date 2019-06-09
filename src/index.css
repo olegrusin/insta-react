@@ -90,7 +90,14 @@ header {
 
 .post__descr {
     padding: 0 20px;
-    margin: 0px 0 20px 0;
+    margin: 0px 0 10px 0;
+}
+.post__time {
+    padding: 0 20px;
+    margin: 0px 0 10px 0;
+    font-size: 0.8em;
+    text-align: right;
+    color: #838393;
 }
 
 .user {
