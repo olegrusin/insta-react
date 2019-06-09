@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ErrorMessage from './ErrorMessage';
+import Loading from './Loading';
 import InstaService from '../services/instaservice';
 import User from './User';
 
@@ -7,7 +8,8 @@ class Posts extends Component {
     InstaService = new InstaService();
     state = {
         posts: [],
-        error: false
+        error: false,
+        loading: false
     }
 
     componentDidMount() {
@@ -15,6 +17,7 @@ class Posts extends Component {
     }
 
     updatePosts() {
+        this.setState({loading: true});
         this.InstaService.getAllPosts()
         .then(this.onPostsLoaded)
         .catch(this.onError)
@@ -23,7 +26,8 @@ class Posts extends Component {
     onPostsLoaded = (posts) => {
         this.setState({
             posts,
-            error: false
+            error: false,
+            loading: false
         })
     }
 
@@ -63,7 +67,7 @@ class Posts extends Component {
             return <ErrorMessage />
         }
 
-        const items = this.renderItem(posts)
+        const items = this.state.loading ? <Loading /> : this.renderItem(posts);
 
 
         return (

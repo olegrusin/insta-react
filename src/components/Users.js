@@ -7,14 +7,16 @@ export default class Users extends Component {
     InstaService = new InstaService();
     state = {
         users: [],
-        error: false
+        error: false,
+        loading: false
     }
 
     componentDidMount() {
-        this.updateUsers()
+        this.updateUsers();
     }
     
     updateUsers() {
+        this.setState({loading: true});
         this.InstaService.getAllPosts()
         .then(this.onUsersLoaded)
         .catch(this.onError)
@@ -23,7 +25,8 @@ export default class Users extends Component {
     onUsersLoaded = (users) => {
         this.setState({
             users,
-            error: false
+            error: false,
+            loading: false
         })
     }
 
@@ -35,8 +38,10 @@ export default class Users extends Component {
 
     renderItem(arr) {
         
-        
         return arr
+            .filter((item, index, self) =>
+                index === self.findIndex(el => el.name === item.name)
+            )
             .map(item => {
             const {name, altname, photo, id} = item;
 
@@ -60,7 +65,7 @@ export default class Users extends Component {
             return <ErrorMessage />
         }
 
-        const items = this.renderItem(users);
+        const items = this.state.loading ? "loading..." : this.renderItem(users);
 
         return (
             <div className="right">
